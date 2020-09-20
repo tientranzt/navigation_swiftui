@@ -1,10 +1,3 @@
-//
-//  DetailBear.swift
-//  bear_navigation
-//
-//  Created by tientran on 9/19/20.
-//
-
 import SwiftUI
 
 struct DetailBear: View {
@@ -16,7 +9,9 @@ struct DetailBear: View {
                 .resizable()
                 .aspectRatio(contentMode: isScale ? .fill :  .fit)
                 .onTapGesture{
-                    isScale.toggle()
+                    withAnimation{
+                        isScale.toggle()
+                    }
                 }
             Text(bear.description)
             Spacer()
@@ -25,8 +20,10 @@ struct DetailBear: View {
     }
 }
 
+
+
 struct DetailBear_Previews: PreviewProvider {
     static var previews: some View {
-        DetailBear(bear: Bear(name: "Test Name", image: "bear1", age: "1", description: "Test Description"))
+        DetailBear(bear: Bear(name: "Test Name", image: "bear1", age: "1",canSwim : true , description: "Test Description"))
     }
 }

@@ -9,15 +9,22 @@ import SwiftUI
 
 struct ContentView: View {
     let bear : [Bear] = Bear.bear()
+    @State var canSwim : Bool = false
     var body: some View {
         NavigationView{
             List{
+                Toggle(isOn: $canSwim, label: {
+                    Text("CanSwim")
+                })
                 ForEach(self.bear, id: \.id){ b  in
-                    NavigationLink(destination: DetailBear(bear: b)){
-                        BearRow(bear: b)
+                    if !self.canSwim || b.canSwim {
+                        NavigationLink(destination: DetailBear(bear: b)){
+                            BearRow(bear: b)
+                        }
                     }
                 }
             }
+            .listStyle(InsetListStyle())
             .navigationBarTitle(Text("Cute Bear"))
         }
     }
@@ -38,7 +45,7 @@ struct BearRow: View {
                 .frame(width: 100, height: 100)
             
             VStack(alignment:.leading){
-                Text("Age: \(bear.age)")
+                Text("Age: \(bear.age) - \(bear.canSwim ? "Can Swim" : "Can't Swim")")
                 Text(bear.description)
                 
             }
